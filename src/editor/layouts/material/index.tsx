@@ -5,7 +5,11 @@ export default function Material() {
     <div className="material">
       {componentList.map((item) => {
         return (
-          <DraggableBox id={item[0]} key={item[0]}>
+          <DraggableBox
+            name={item[0]}
+            key={item[0]}
+            componentDefaultProps={item[1].componentDefaultProps}
+          >
             {item[0]}
           </DraggableBox>
         );

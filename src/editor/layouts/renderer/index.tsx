@@ -23,12 +23,8 @@ interface Component {
 }
 export default function Material() {
   const components = useSelector((state) => state.components.components);
-  console.log("ryan", components);
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: "box",
-    drop: (item, monitor) => {
-      console.log(item, monitor);
-    },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
@@ -37,7 +33,6 @@ export default function Material() {
   const renderComponent = (components: Component[]) => {
     return components.map((component) => {
       const Com = componentMap.get(component.name);
-      console.log("ryan", componentMap);
       if (Com) {
         return (
           <Com {...component.props} key={component.id}>

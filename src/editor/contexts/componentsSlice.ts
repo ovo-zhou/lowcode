@@ -10,36 +10,14 @@ export const componentsSlice = createSlice({
           type: "primary",
           text: "Button",
         },
-      },
-      {
-        id: 2,
-        name: "Space",
-        props: {
-          size: "large",
-        },
-        children: [
-          {
-            id: 3,
-            name: "Button",
-            props: {
-              type: "primary",
-              text: "Button",
-            }
-          },
-          {
-            id: 4,
-            name: "Button",
-            props: {
-              type: "primary",
-              text: "Button",
-            },
-          },
-        ],
-      },
+      }
     ]
   },
   reducers: {
-    updateComponents: (state, action) => { },
+    updateComponents: (state, action) => {
+      console.log(action)
+      return { components: [...state.components, action.payload] }
+    },
   }
 });
 export const { updateComponents } = componentsSlice.actions;
