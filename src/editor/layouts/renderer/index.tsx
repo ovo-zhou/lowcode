@@ -2,6 +2,7 @@ import React from "react";
 import { useDrop } from "react-dnd";
 import { useSelector } from "react-redux";
 import { componentMap } from "../../components";
+import DroppableBox from "../../common/droppableBox";
 
 interface Component {
   /**
@@ -33,14 +34,25 @@ export default function Material() {
   const renderComponent = (components: Component[]) => {
     return components.map((component) => {
       const Com = componentMap.get(component.name);
-      if (Com) {
+      // console.log("Com", component);
+      if (!Com) {
+        return null;
+      }
+      if (component.children) {
+        return (
+          <DroppableBox key={component.id} id={component.id}>
+            <Com {...component.props} key={component.id}>
+              {renderComponent(component.children)}
+            </Com>
+          </DroppableBox>
+        );
+      } else {
         return (
           <Com {...component.props} key={component.id}>
             {component.children && renderComponent(component.children)}
           </Com>
         );
       }
-      return null;
     });
   };
   return (
@@ -49,6 +61,7 @@ export default function Material() {
       ref={drop}
       style={{
         backgroundColor: canDrop ? (isOver ? "green" : "yellow") : "red",
+        minHeight: "100px",
       }}
     >
       {renderComponent(components)}

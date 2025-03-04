@@ -17,6 +17,7 @@ export default function DraggableBox(props: {
       if (!dropResult) {
         return;
       }
+      console.log("拖动", draggedItem, dropResult);
       // 更新组件store,在组件schema中插入一条新纪录，props为默认值
       dispatch(
         updateComponents({

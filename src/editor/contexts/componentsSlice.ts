@@ -3,14 +3,6 @@ export const componentsSlice = createSlice({
   name: "components",
   initialState: {
     components: [
-      {
-        id: 1,
-        name: "Button",
-        props: {
-          type: "primary",
-          text: "Button",
-        },
-      }
     ]
   },
   reducers: {
