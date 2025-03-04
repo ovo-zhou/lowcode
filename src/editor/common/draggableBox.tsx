@@ -1,30 +1,29 @@
-import React from "react";
+import React, { Children } from "react";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { updateComponents } from "../contexts/componentsSlice";
 export default function DraggableBox(props: {
-  name: string;
-  componentDefaultProps: object;
+  component: React.ComponentType;
   children: React.ReactNode;
 }) {
-  const { name, componentDefaultProps } = props;
+  const { component } = props;
   const dispatch = useDispatch();
   const [{ isDragging }, drag] = useDrag({
     type: "box",
-    item: { name },
+    item: { name: component.componentName },
     end(draggedItem, monitor) {
       // console.log("end", draggedItem, monitor.getDropResult());
       const dropResult = monitor.getDropResult();
       if (!dropResult) {
         return;
       }
-      // 更新组件store
-      console.log(name, componentDefaultProps);
+      // 更新组件store,在组件schema中插入一条新纪录，props为默认值
       dispatch(
         updateComponents({
           id: +new Date(),
-          name,
-          props: componentDefaultProps,
+          name: component.componentName,
+          props: component.componentDefaultProps,
+          children: component.children,
         })
       );
     },

@@ -15,7 +15,6 @@ export const componentsSlice = createSlice({
   },
   reducers: {
     updateComponents: (state, action) => {
-      console.log(action)
       return { components: [...state.components, action.payload] }
     },
   }
